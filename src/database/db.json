@@ -81,48 +81,80 @@
       "percentage": 30
     }
   ],
-    "flowers":[
-      {
-        "id": "1",
-        "title": "flower1",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBFvIpPbfSL0hyAyO3RFfXDZrFMVfStZU4ng&s"
-      },
-      {
-        "id": "2",
-        "title": "flower2",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvP1CjUrs5m2Ckn6IKZfU0gmh6PBshtpKOqw&s"
-      },
-      {
-        "id": "3",
-        "title": "flower3",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRunpTKcS8btgUy4nj9ShyOjQSZ3evTxIbAeg&s"
-      },
-      {
-        "id": "4",
-        "title": "flower4",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBw6SkogK_E8Mi7e3HHeTzADs1GBoYNB-bVw&s"
-      },
-      {
-        "id": "5",
-        "title": "flower5",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThfD84gnlrvDJ4b8Zls3DjdUQXmQu72KcgCQ&s"
-      },
-      {
-        "id": "6",
-        "title": "flower6",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgr_MaszCjVEyLPOJJ0a3_RkKvVsPWl4XQcA&s"
-      },
-      {
-        "id": "7",
-        "title": "flower7",
-        "desc": "مسینبتهسثتبمهتبهمستبسینم",
-        "src" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBO46dMkLNy7JzEcRnBR2iWrroeZVfsIQuw&s"
-      }
-    ]
+  "flowers": [
+    {
+      "id": "1",
+      "title": "flower1",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBFvIpPbfSL0hyAyO3RFfXDZrFMVfStZU4ng&s"
+    },
+    {
+      "id": "2",
+      "title": "flower2",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvP1CjUrs5m2Ckn6IKZfU0gmh6PBshtpKOqw&s"
+    },
+    {
+      "id": "3",
+      "title": "flower3",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRunpTKcS8btgUy4nj9ShyOjQSZ3evTxIbAeg&s"
+    },
+    {
+      "id": "4",
+      "title": "flower4",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBw6SkogK_E8Mi7e3HHeTzADs1GBoYNB-bVw&s"
+    },
+    {
+      "id": "5",
+      "title": "flower5",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThfD84gnlrvDJ4b8Zls3DjdUQXmQu72KcgCQ&s"
+    },
+    {
+      "id": "6",
+      "title": "flower6",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgr_MaszCjVEyLPOJJ0a3_RkKvVsPWl4XQcA&s"
+    },
+    {
+      "id": "7",
+      "title": "flower7",
+      "desc": "مسینبتهسثتبمهتبهمستبسینم",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBO46dMkLNy7JzEcRnBR2iWrroeZVfsIQuw&s"
+    }
+  ],
+  "collections": [
+    {
+      "id": "1",
+      "title": "سبد های گل ",
+      "desc": "BOUQUETS",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZXqrNFzEpH6mxVviBdEc6rm4yaXwPYJeiRg&s"
+    },
+    {
+      "id": "2",
+      "title": "دسته گل ها ",
+      "desc": "WEDDING",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxAXmaYfP8IO6Edf0zur1bPly1jFiWChgJhg&s"
+    },
+    {
+      "id": "3",
+      "title": "باکس های گل ",
+      "desc": "FLOWER BOX",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvP1CjUrs5m2Ckn6IKZfU0gmh6PBshtpKOqw&s"
+    },
+    {
+      "id": "4",
+      "title": "باکس های مخصوص ",
+      "desc": "VIP BOX",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUIrSwRt4tldj8fYrb9lMcjm2B1BHb8z61RQ&s"
+    },
+    {
+      "id": "5",
+      "title": "شاخه گل ",
+      "desc": "FLOWER BRANCH",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7UD4-AA9SjacG5u9M3oE0DKEoj1kzznffyQ&s"
+    }
+  ]
 }

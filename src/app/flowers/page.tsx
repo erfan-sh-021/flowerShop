@@ -1,25 +1,21 @@
-import Grid from "../flowersection/Grid";
+import { getData } from "@/lib/getData";
+import Grid from "../../components/flowersection/Grid";
 
-async function getFlowers(page: number, limit: number) {
-  const res = await fetch(`http://localhost:3001/flowers?_page=${page}&_limit=${limit}`, {
-    cache: "no-store",
-  });
-  const totalCount = res.headers.get("X-Total-Count");
-  const data = await res.json();
-  return { data, totalCount: Number(totalCount) };
-}
-
-export default async function FlowersPage({ searchParams }: { searchParams: { page?: string } }) {
+export default async function FlowersPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const page = Number(searchParams.page) || 1;
   const limit = 6;
 
-  const { data: flowers, totalCount } = await getFlowers(page, limit);
+  const { data: flowers, totalCount } = await getData("flowers",page, limit);
   const totalPages = Math.ceil(totalCount / limit);
 
   return (
     <div className="px-4 py-6">
       <h1 className="text-center text-xl font-bold mb-6">همه گل‌ها</h1>
-      <Grid flowers={flowers} />
+      <Grid items={flowers} />
 
       {/* Pagination */}
       <div className="flex justify-center gap-2 mt-6">
