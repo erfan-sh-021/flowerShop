@@ -5,6 +5,8 @@ import HeroSection from "@/components/HeroSection";
 import FlowerSection from "../components/flowersection/FlowerSection";
 import ServicesSection from "@/components/serviceSection";
 import FlowersCollections from "@/components/colectionFlower";
+import Articles from "@/components/articles";
+import Footer from "@/components/footer/footer";
 
 export default async function Home() {
   return (
@@ -13,6 +15,8 @@ export default async function Home() {
       <FlowerSection />
       <ServicesSection />
       <FlowersCollections/>
+      <Articles/>
+      <Footer/>
       
     </>
   );

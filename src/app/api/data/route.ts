@@ -24,6 +24,12 @@ export async function GET(req: Request) {
       totalCount: data.flowers.length,
     });
   }
+  if (type === "articles") {
+    return NextResponse.json({
+      data: data.articles,
+      totalCount: data.articles.length,
+    });
+  }
 
   return NextResponse.json(
     { error: "Invalid type. Use 'collections' or 'flowers'" },

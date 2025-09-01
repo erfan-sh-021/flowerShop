@@ -1,5 +1,5 @@
 export async function getData(
-  type: "flowers" | "collections",
+  type: "flowers" | "collections" | "articles",
   page: number = 1,
   limit: number = 6
 ) {

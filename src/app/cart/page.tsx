@@ -3,7 +3,7 @@ import CardItem from "@/components/cardItem";
 import Container from "@/components/container";
 import { useshopingCartContext } from "@/context/shopingCartContext";
 import { useEffect, useState } from "react";
-import { IProductItem } from "../store/page";
+import { IProductItem } from "../../store/page";
 import axios from "axios";
 import { formatNumberWhithCommas } from "@/utils/number";
 
