@@ -30,7 +30,7 @@ export default function RibbonTitle({
                      sm:translate-y-3 /* ≥640px */
                      md:translate-y-[8%] /* ≥768px */
                      lg:translate-y-[10%] /* ≥1024px */
-                     font-sans text-base sm:text-lg md:text-xl lg:text-2xl "
+                     font-sans text-base sm:text-lg md:text-xl lg:text-3xl lg:font-bold "
       >
         {text}
       </span>
