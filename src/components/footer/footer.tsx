@@ -3,7 +3,7 @@ import MobileAccordion from "./mobileAccordion";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#eec6b4] text-gray-800 px-6 py-8 rtl">
+    <footer className="bg-[#eec6b4] text-gray-800 px-6 py-8 rtl mt-10">
       {/* دسکتاپ */}
       <div className="hidden md:grid grid-cols-4 gap-6">
         {/* لوگو + توضیحات */}

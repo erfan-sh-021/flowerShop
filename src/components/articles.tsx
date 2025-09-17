@@ -6,7 +6,6 @@ export default async function Articles() {
   
     return (
       <section className="py-12 text-center">
-        <h2 className="text-xl font-bold mb-10">مقالات</h2>
   
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {articles.slice(0,3).map((article:any , i:number) => (

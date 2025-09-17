@@ -10,8 +10,8 @@ export default async function CollectionsSection() {
   const tall = collections[4];
 
   return (
-    <section className="w-full px-6 py-8">
-      <h2 className="text-center text-lg font-semibold mb-6">دسته بندی ها</h2>
+    <section className="w-full px-6 py-8 ">
+     
 
       <div className="relative flex justify-center items-center gap-2">
         {/* سمت چپ: ۴ مربع */}

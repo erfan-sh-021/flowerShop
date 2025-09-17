@@ -25,7 +25,7 @@ const services = [
 
 export default function ServicesSection(){
     return(
-        <section className="bg-green py-10 mt-5">
+        <section className="bg-green pt-10 pb-20 mt-20">
             <h2 className="text-center text-gray-600 mb-8">
                 خدماتی که ما ارائه میدهیم
             </h2>

@@ -1,5 +1,5 @@
 import { getData } from "@/lib/getData";
-import Grid from "../../components/flowersection/Grid";
+// import Grid from "../../components/flowersection/Grid";
 
 export default async function FlowersPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function FlowersPage({
   return (
     <div className="px-4 py-6">
       <h1 className="text-center text-xl font-bold mb-6">همه گل‌ها</h1>
-      <Grid items={flowers} />
+      {/* <Grid items={flowers} /> */}
 
       {/* Pagination */}
       <div className="flex justify-center gap-2 mt-6">
