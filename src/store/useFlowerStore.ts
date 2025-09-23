@@ -15,6 +15,7 @@ interface FlowerStore {
   fetchFlowers: (page?: number, limit?: number) => Promise<void>;
   addFlower: (flower: Flower) => Promise<void>;
   deleteFlower: (id: string) => Promise<void>;
+  updateFlower: (flower: Flower) => Promise<void>; // 👈 اضافه شد
 }
 
 const useFlowerStore = create<FlowerStore>((set, get) => ({
@@ -48,7 +49,7 @@ const useFlowerStore = create<FlowerStore>((set, get) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(flower),
       });
-      await get().fetchFlowers(); // بعد از اضافه کردن، لیست رو دوباره می‌گیریم
+      await get().fetchFlowers();
     } catch (error) {
       console.error(error);
     }
@@ -57,9 +58,22 @@ const useFlowerStore = create<FlowerStore>((set, get) => ({
   deleteFlower: async (id) => {
     try {
       await fetch(`/api/data?id=${id}`, { method: "DELETE" });
-      await get().fetchFlowers(); // بعد از حذف هم دوباره لیست رو می‌گیریم
+      await get().fetchFlowers();
     } catch (error) {
       console.error(error);
+    }
+  },
+
+  updateFlower: async (flower) => { // 👈 متد جدید
+    try {
+      await fetch(`/api/data?id=${flower.id}`, {
+        method: "PUT", // یا PATCH اگه فقط بخوای بعضی فیلدها رو آپدیت کنی
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(flower),
+      });
+      await get().fetchFlowers();
+    } catch (error) {
+      console.error("Update flower error:", error);
     }
   },
 }));

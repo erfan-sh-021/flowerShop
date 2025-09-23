@@ -14,7 +14,7 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">مدیریت گل‌ها</h1>
+      <h1 className="text-2xl font-bold mb-10 text-center">مدیریت محصولات ویژه</h1>
       <DashboardForm />
       <DashboardList />
     </div>
