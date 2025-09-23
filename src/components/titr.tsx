@@ -7,7 +7,7 @@ type RibbonTitleProps = {
 
 export default function RibbonTitle({
   text,
-  widthPercent = "90%",
+  widthPercent = "70%",
 }: RibbonTitleProps) {
   return (
     <div className="relative mx-auto text-center pt-10 pb-20">
@@ -26,10 +26,9 @@ export default function RibbonTitle({
       {/* متن روی روبان */}
       <span
         className="  absolute inset-0 flex items-center justify-center
-                     translate-y-0   /* موبایل */
-                     sm:translate-y-3 /* ≥640px */
-                     md:translate-y-[8%] /* ≥768px */
-                     lg:translate-y-[10%] /* ≥1024px */
+                     translate-y-[-8px]   /* موبایل */
+                     md:translate-y-[5%] /* ≥768px */
+                     lg:translate-y-[8%] /* ≥1024px */
                      font-sans text-base sm:text-lg md:text-xl lg:text-3xl lg:font-bold "
       >
         {text}

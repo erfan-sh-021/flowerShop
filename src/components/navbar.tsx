@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Container from "./container";
-import { useshopingCartContext } from "@/context/shopingCartContext";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { ShoppingCart, User, Trash2 } from "lucide-react";
@@ -10,11 +9,21 @@ import { ShoppingCart, User, Trash2 } from "lucide-react";
 function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { cartTotalQty, cartItems, removeFromCart } = useshopingCartContext();
+
+  // ✅ داده تستی برای جایگزینی موقت
+  const [cartItems, setCartItems] = useState<any[]>([
+    { id: 1, name: "گل رز", price: 120000, image: "/test.jpg" },
+    { id: 2, name: "گل لاله", price: 150000, image: "/test.jpg" },
+  ]);
+  const cartTotalQty = cartItems.length;
+
+  const removeFromCart = (id: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [closing, setClosing] = useState(false); // ✅ state برای انیمیشن خروج
+  const [closing, setClosing] = useState(false);
 
   const navLinks = [
     { href: "/", title: "خانه " },
@@ -30,7 +39,7 @@ function Navbar() {
     setTimeout(() => {
       setCartOpen(false);
       setClosing(false);
-    }, 300); // زمان هماهنگ با duration انیمیشن
+    }, 300);
   };
 
   return (
@@ -90,10 +99,7 @@ function Navbar() {
       {/* Drawer */}
       {cartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
-          {/* بک‌دراپ */}
           <div className="fixed inset-0 bg-black/40" onClick={closeCart} />
-
-          {/* پنل */}
           <div className={`relative w-80 bg-white h-full shadow-xl p-4 flex flex-col
             ${closing ? "animate-slide-out" : "animate-slide-in"}`}>
             <h2 className="text-center font-bold text-lg mb-4">سبد خرید</h2>
@@ -129,7 +135,6 @@ function Navbar() {
         </div>
       )}
 
-      {/* انیمیشن‌ها */}
       <style jsx global>{`
         .animate-slide-in {
           animation: slideIn 0.3s ease forwards;

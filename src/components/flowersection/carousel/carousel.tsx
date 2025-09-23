@@ -37,7 +37,7 @@ export default function Carousel({ flowers }: Props) {
     <Swiper
       modules={[FreeMode]}
       slidesPerView="auto"
-      spaceBetween={16}
+      spaceBetween={12} // فاصله کارت‌ها کمی کمتر شد
       freeMode={{ momentum: true }}
       grabCursor={true}
       style={{ paddingRight: "1rem" }}
@@ -47,25 +47,23 @@ export default function Carousel({ flowers }: Props) {
         return (
           <SwiperSlide
             key={flower.id}
-            style={{ width: "clamp(150px, 20vw, 220px)", flexShrink: 0 }}
+            className="!w-[180px]" // عرض کارت کوچکتر و ثابت
           >
-            <Link
-              href={`/flowerItems/${flower.id}` }
-              className="block"
-            >
-              <div className="group bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col items-center text-center border border-gray-100 hover:border-green-200 relative">
+            <Link href={`/flowerItems/${flower.id}`} className="block">
+              <div className="group bg-white shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col items-center text-center border border-gray-100 hover:border-green-200">
                 {/* عکس محصول */}
-                <div className="relative w-full h-36 overflow-hidden rounded-xl">
+                {/* عکس محصول */}
+                <div className="relative w-full h-44 overflow-hidden bg-gray-50 flex items-center justify-center">
                   <Image
                     src={flower.src || "/images/placeholder.png"}
                     alt={flower.alt || "flower"}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="object-contain max-h-full max-w-full transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
                 {/* متن و قیمت */}
-                <div className="p-3 flex flex-col gap-1 items-center">
+                <div className="p-3 flex flex-col gap-1 items-center w-full">
                   <h3 className="text-sm font-semibold text-gray-800 truncate group-hover:text-green-700 transition-colors text-center">
                     {flower.title || "بدون عنوان"}
                   </h3>
@@ -73,11 +71,10 @@ export default function Carousel({ flowers }: Props) {
                     {formatted ? `${formatted} تومان` : "—"}
                   </span>
 
-                  {/* دکمه انتخاب (زیر قیمت) */}
-
+                  {/* دکمه انتخاب */}
                   <button
                     type="button"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-4 py-2 bg-darkgreen text-white text-sm rounded-lg shadow hover:bg-green"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 px-3 py-1.5 bg-darkgreen text-white text-xs shadow hover:bg-green"
                   >
                     انتخاب
                   </button>
