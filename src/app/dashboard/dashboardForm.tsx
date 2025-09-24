@@ -7,7 +7,7 @@ export default function DashboardForm({ currentData }: { currentData: "flowers" 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [src, setSrc] = useState("");
-  const [price, setPrice] = useState<number>(0);
+  const [price, setPrice] = useState<number>( );
 
   const handleSubmit = async () => {
     const newItem = { id: Date.now().toString(), title, desc, src, ...(currentData === "flowers" && { price }) };
@@ -18,11 +18,19 @@ export default function DashboardForm({ currentData }: { currentData: "flowers" 
   };
 
   return (
-    <div className="mb-6 flex flex-col gap-2">
+    <div className="mb-6 flex flex-col gap-2 rtl">
       <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="عنوان" className="border p-2 rounded" />
       <input type="text" value={desc} onChange={e => setDesc(e.target.value)} placeholder="توضیحات" className="border p-2 rounded" />
       <input type="text" value={src} onChange={e => setSrc(e.target.value)} placeholder="آدرس عکس" className="border p-2 rounded" />
-      {currentData === "flowers" && <input type="number" value={price} onChange={e => setPrice(Number(e.target.value))} placeholder="قیمت" className="border p-2 rounded" />}
+      {currentData === "flowers" && (
+        <input
+          type="number"
+          value={price}
+          onChange={e => setPrice(Number(e.target.value))}
+          placeholder="قیمت را وارد کنید"
+          className="border p-2 rounded"
+        />
+      )}
       <button onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">ثبت</button>
     </div>
   );
