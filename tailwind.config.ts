@@ -15,11 +15,12 @@ module.exports = {
         lightbrown: "#EBC8B4",
         lightbrown2: "#F8E6CE",
         brown: "#EFBBA6",
-        darkgreen: "#5A9BA2",
+        darkgreen: "#819c8e",
         lightgreen: "#D0DBCD", 
         lightgreen2: "#CCE2AA",
         green: "#B8CEC2",
         light: "#F8F9FA",
+        lightOrange:"#eec6b4"
       },
     },
   },
