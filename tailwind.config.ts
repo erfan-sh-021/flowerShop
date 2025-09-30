@@ -22,6 +22,17 @@ module.exports = {
         light: "#F8F9FA",
         lightOrange:"#eec6b4"
       },
+      keyframes: {
+        // فقط انیمیشن تکسچر
+        textureMove: {
+          '0%': { 'background-position': '0% 0%' },
+          '50%': { 'background-position': '20% 20%' },
+          '100%': { 'background-position': '0% 0%' },
+        },
+      },
+      animation: {
+        textureMove: 'textureMove 20s linear infinite',
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],
