@@ -19,7 +19,7 @@ export default async function Home() {
       <RibbonTitle text="مقالات" />
 
       <Articles/>
-      <Footer/>
+      <Footer palette={5}/>
       
     </>
   );

@@ -1,38 +1,49 @@
-import Image from "next/image";
-
 type RibbonTitleProps = {
   text: string;
   widthPercent?: string; // مثلا "90%" یا "100%"
+  lineColor?: string; // رنگ خط
+  lineSpacing?: string; // فاصله بین خط‌ها
 };
 
 export default function RibbonTitle({
   text,
   widthPercent = "70%",
+  lineColor = "#cfcfcf", 
+  lineSpacing = "10px", // فاصله پیشفرض
 }: RibbonTitleProps) {
   return (
-    <div className="relative mx-auto text-center pt-10 pb-20">
-      {/* تصویر روبان با عرض درصدی */}
-      <div className="mx-auto" style={{ width: widthPercent }}>
-        <Image
-          src="/images/titrImg.png"
-          alt="Ribbon"
-          width={1920}
-          height={300}
-          className="w-full h-auto"
-          priority
-        />
-      </div>
+    <div
+      className="relative mx-auto py-40"
+      style={{ width: widthPercent, height: "150px" }}
+    >
+      <div className="flex items-center justify-center h-full">
+        {/* خط چپ */}
+        <div
+          className="flex-1 border-t mt-5"
+          style={{
+            borderStyle: "dashed",
+            borderColor: lineColor,
+            borderWidth: "1px",
+            borderSpacing: lineSpacing,
+          }}
+        ></div>
 
-      {/* متن روی روبان */}
-      <span
-        className="  absolute inset-0 flex items-center justify-center
-                     translate-y-[-8px]   /* موبایل */
-                     md:translate-y-[5%] /* ≥768px */
-                     lg:translate-y-[8%] /* ≥1024px */
-                     font-sans text-base sm:text-lg md:text-xl lg:text-3xl lg:font-bold "
-      >
-        {text}
-      </span>
+        {/* متن */}
+        <span className="px-4 font-sans text-base sm:text-lg md:text-xl lg:text-3xl text-black text-center">
+          {text}
+        </span>
+
+        {/* خط راست */}
+        <div
+          className="flex-1 border-t mt-5"
+          style={{
+            borderStyle: "dashed",
+            borderColor: lineColor,
+            borderWidth: "1px",
+            borderSpacing: lineSpacing,
+          }}
+        ></div>
+      </div>
     </div>
   );
 }

@@ -35,20 +35,23 @@ function HeroSection({ palette = 5 }: HeroSectionProps) {
         </div>
 
         {/* متن سمت راست */}
-        <div className="text-right space-y-6 w-full md:w-1/2 order-2">
+        <div className="text-center md:text-right space-y-6 w-full md:w-1/2 order-2">
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
+            className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight"
             style={{ color: colors.title }}
           >
             بهترین گل‌ها <br className="hidden sm:block" /> برای بهترین شما
           </h1>
 
-          <p className="text-base sm:text-lg max-w-md md:mx-0" style={{ color: colors.text }}>
+          <p
+            className="text-base sm:text-lg md:text-base max-w-md mx-auto md:mx-0"
+            style={{ color: colors.text }}
+          >
             مجموعه‌ای از زیباترین گل‌ها برای هدیه دادن به عزیزانتان، با کیفیتی بی‌نظیر و انتخابی خاص.
           </p>
 
           <button
-            className="font-semibold px-14 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl"
+            className="font-semibold px-14 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl block mx-auto md:mx-0"
             style={{
               backgroundImage: `linear-gradient(to right, ${colors.buttonFrom}, ${colors.buttonTo})`,
               color: "#fff",
