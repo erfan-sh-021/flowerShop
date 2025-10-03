@@ -2,41 +2,54 @@ import { Truck, Handshake, ThumbsUp, ReceiptText } from "lucide-react";
 
 const services = [
     {
-        id:1,
-        icon:<ReceiptText className="w-10 h-10 mx-auto text-white"/>,
-        title:"پرداخت در محل برای تهران"
+        id: 1,
+        icon: <ReceiptText className="w-12 h-12 mx-auto text-green-600" />,
+        title: "پرداخت در محل برای تهران",
     },
     {
-        id:2,
-        icon:<ThumbsUp className="w-10 h-10 mx-auto text-white"/>,
-        title:"شرایط فیزیکی سالم"
+        id: 2,
+        icon: <ThumbsUp className="w-12 h-12 mx-auto text-green-600" />,
+        title: "شرایط فیزیکی سالم",
     },
     {
-        id:3,
-        icon:<Handshake className="w-10 h-10 mx-auto text-white"/>,
-        title:"ارسال سریع"
+        id: 3,
+        icon: <Handshake className="w-12 h-12 mx-auto text-green-600" />,
+        title: "ارسال سریع",
     },
     {
-        id:1,
-        icon:<Truck className="w-10 h-10 mx-auto text-white"/>,
-        title:"تضمین کیفیت"
+        id: 4,
+        icon: <Truck className="w-12 h-12 mx-auto text-green-600" />,
+        title: "تضمین کیفیت",
     },
-]
+];
 
-export default function ServicesSection(){
-    return(
-        <section className="bg-green pt-10 pb-20 mt-20">
-            <h2 className="text-center text-gray-600 mb-8">
+export default function ServicesSection() {
+    return (
+        <section className="bg-gray-50 pt-16 pb-24 mt-20">
+            {/* عنوان بخش */}
+            <h2 className="text-center text-gray-800 text-2xl md:text-3xl font-semibold mb-12">
                 خدماتی که ما ارائه میدهیم
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                {services.map((service,index)=>(
-                    <div className="flex flex-col items-center " key={index}>
-                        {service.icon}
-                        <p className="mt-3 text-sm md:text-base text-white text-">{service.title}</p>
+
+            {/* کارت‌های خدمات */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-6xl mx-auto">
+                {services.map((service, index) => (
+                    <div
+                        className="flex flex-col items-center p-6 rounded-xl bg-white shadow-md transition-transform hover:scale-105 hover:shadow-xl cursor-pointer group"
+                        key={index}
+                    >
+                        {/* آیکون با subtle bounce */}
+                        <div className="mb-4 transform transition-transform duration-300 group-hover:-translate-y-1">
+                            {service.icon}
+                        </div>
+
+                        {/* متن سرویس */}
+                        <p className="mt-2 text-sm md:text-base text-gray-800 font-medium">
+                            {service.title}
+                        </p>
                     </div>
                 ))}
             </div>
         </section>
-    )
+    );
 }

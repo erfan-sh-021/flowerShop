@@ -18,7 +18,7 @@ module.exports = {
         darkgreen: "#819c8e",
         lightgreen: "#D0DBCD", 
         lightgreen2: "#CCE2AA",
-        green: "#B8CEC2",
+        firstgreen: "#B8CEC2",
         light: "#F8F9FA",
         lightOrange:"#eec6b4"
       },
