@@ -11,12 +11,12 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <RibbonTitle text="محصولات ویژه" />
+      <RibbonTitle text="محصولات ویژه" pb="pb-40" pt="pt-40"/>
       <FlowerSection />
-      <ServicesSection />
-      <RibbonTitle text="دسته بندی محصولات" />
+      <RibbonTitle text="دسته بندی محصولات" pb="pb-40" pt="pt-40"/>
       <FlowersCollections/>
-      <RibbonTitle text="مقالات" />
+      <ServicesSection />
+      <RibbonTitle text="مقالات" pb="pb-20" pt="pt-40"/>
 
       <Articles/>
       <Footer palette={5}/>

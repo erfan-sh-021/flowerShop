@@ -3,17 +3,21 @@ type RibbonTitleProps = {
   widthPercent?: string; // مثلا "90%" یا "100%"
   lineColor?: string; // رنگ خط
   lineSpacing?: string; // فاصله بین خط‌ها
+  pt?: string; // مقدار padding-top (tailwind class)
+  pb?: string; // مقدار padding-bottom (tailwind class)
 };
 
 export default function RibbonTitle({
   text,
-  widthPercent = "70%",
-  lineColor = "#cfcfcf", 
-  lineSpacing = "10px", // فاصله پیشفرض
+  widthPercent = "50%",
+  lineColor = "#cfcfcf",
+  lineSpacing = "10px",
+  pt = "pt-20", // پیشفرض
+  pb = "pb-20", // پیشفرض
 }: RibbonTitleProps) {
   return (
     <div
-      className="relative mx-auto py-40"
+      className={`relative mx-auto ${pt} ${pb}`}
       style={{ width: widthPercent, height: "150px" }}
     >
       <div className="flex items-center justify-center h-full">

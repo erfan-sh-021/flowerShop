@@ -13,46 +13,31 @@ type Collection = {
 export default async function CollectionsSection() {
   const res = await getData("collections", 1, 10);
   const collections: Collection[] = res?.data ?? [];
-
   const items = collections.slice(0, 6);
+  const palette = colorPalettes[5]; // پالت دلخواه
 
-  const palette = colorPalettes[5]; // هر پالت رو بخوای می‌تونی تغییر بدی
-
-  if (!items.length) {
-    return (
-      <section className="w-full px-6 py-8">
-        <div className="max-w-7xl mx-auto text-center text-gray-500">
-          هنوز مجموعه‌ای ثبت نشده است.
-        </div>
-      </section>
-    );
-  }
+  const placeholdersCount = 6 - items.length;
 
   return (
-    <section
-      className="w-full px-6 py-10 rounded-2xl"
-      style={{
-        background: `linear-gradient(135deg, ${palette.bgFrom}, ${palette.bgTo})`,
-      }}
-    >
-      {/* فقط متن بالا سمت راست */}
-      <div className="max-w-7xl mx-auto flex justify-end mb-6">
+    <section className="w-full px-6  rounded-2xl">
+      {/* متن بالا سمت راست */}
+      {/* <div className="max-w-7xl mx-auto flex justify-end mb-4">
         <span
-          className="text-sm font-semibold cursor-pointer transition-colors"
+          className="text-sm font-semibold cursor-pointer hover:underline transition-colors"
           style={{ color: palette.linkHover }}
         >
           مشاهده همه
         </span>
-      </div>
+      </div> */}
 
-      {/* گرید ۶ تایی */}
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-6">
+      {/* گرید کارت‌ها */}
+      <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3">
         {items.map((item) => (
           <Link
             key={item.id}
             href={`/collections/${item.slug ?? item.id}`}
-            className="group relative block w-full pb-[100%] overflow-hidden rounded-xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500"
-            aria-label={`مشاهده مجموعه ${item.title}`}
+            className="group relative block w-full pb-[100%] overflow-hidden rounded-lg focus:outline-none transition-shadow duration-300 hover:shadow-md"
+            aria-label={`مشاهده دسته گل ${item.title}`}
           >
             <Image
               src={item.src}
@@ -60,21 +45,34 @@ export default async function CollectionsSection() {
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/40"
-            />
-            <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="absolute inset-0 flex items-end justify-center p-2">
               <span
-                className="text-center text-white text-sm font-bold px-4 py-1 rounded-md shadow-md"
+                className="text-center text-white text-sm md:text-base font-semibold px-3 py-1 rounded-md backdrop-blur-sm"
                 style={{
-                  background: `linear-gradient(90deg, ${palette.linkActive}, ${palette.linkHover})`,
+                  background: `linear-gradient(90deg, ${palette.linkActive}AA, ${palette.linkHover}AA)`,
                 }}
               >
                 {item.title}
               </span>
             </div>
           </Link>
+        ))}
+
+        {/* کارت‌های placeholder */}
+        {Array.from({ length: placeholdersCount }).map((_, idx) => (
+          <div
+            key={`placeholder-${idx}`}
+            className="flex items-center justify-center w-full pb-[100%] border-2 border-dashed rounded-lg relative overflow-hidden cursor-pointer transition-colors duration-300 hover:border-linkHover hover:text-linkHover hover:scale-105 hover:shadow-lg"
+            style={{
+              borderColor: palette.linkActive,
+              color: palette.linkActive,
+              transitionProperty: "border-color, color, transform, box-shadow",
+            }}
+          >
+            <span className="absolute inset-0 flex items-center justify-center text-lg md:text-xl font-bold transition-transform duration-300 hover:scale-110">
+              موارد بیشتر
+            </span>
+          </div>
         ))}
       </div>
     </section>
