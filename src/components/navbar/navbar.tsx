@@ -9,6 +9,7 @@ import { ShoppingCart, User } from "lucide-react";
 import CartDrawer from "./cartDrawer";
 import useCartStore from "@/store/useCartStore";
 import { colorPalettes } from "@/utils/colorPlatte";
+import ClientOnly from "../clientOnly";
 
 interface NavbarProps {
   palette?: 1 | 2 | 3 | 4 | 5;
@@ -20,17 +21,13 @@ function Navbar({ palette = 5 }: NavbarProps) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [totalItems, setTotalItems] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // دنبال کردن تعداد محصولات سبد
-  useEffect(() => {
-    setTotalItems(useCartStore.getState().getTotalItems());
-    const unsubscribe = useCartStore.subscribe((state) => {
-      setTotalItems(state.getTotalItems());
-    });
-    return () => unsubscribe();
-  }, []);
+  // ✅ Zustand
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
+  const totalItems = useCartStore((state) =>
+    hasHydrated ? state.getTotalItems() : 0
+  );
 
   // کنترل اسکرول
   useEffect(() => {
@@ -47,6 +44,8 @@ function Navbar({ palette = 5 }: NavbarProps) {
     { href: "/spetial", title: "بسته های ویژه مناسبتی" },
     { href: "/login", title: "ورود" },
   ];
+
+  if (!hasHydrated) return null; // ✅ فقط بعد از hydrate رندر می‌کنه
 
   return (
     <>
@@ -150,36 +149,38 @@ function Navbar({ palette = 5 }: NavbarProps) {
 
           {/* منوی موبایل */}
           {menuOpen && (
-    <div className="flex flex-col items-center gap-5 mt-4 px-4 pb-6 md:hidden text-center animate-slideDown fade-in">
-    {navLinks.map((nav, index) => (
-      <div key={nav.href} className="w-full flex flex-col items-center">
-        <Link
-          href={nav.href}
-          className={`transition-all duration-200 ${
-            pathname === nav.href
-              ? `text-[${colors.linkActive}] font-semibold`
-              : `text-[${colors.text}] hover:text-[${colors.linkHover}] hover:scale-105`
-          }`}
-          onClick={() => setMenuOpen(false)}
-        >
-          {nav.title}
-        </Link>
-  
-        {/* بردر زیر هر آیتم بجز آخری */}
-        {index < navLinks.length - 1 && (
-          <div className="w-[70%] border-b border-gray-300 mt-2"></div>
-        )}
-      </div>
-    ))}
-  </div>
-  
+            <div className="flex flex-col items-center gap-5 mt-4 px-4 pb-6 md:hidden text-center animate-slideDown fade-in">
+              {navLinks.map((nav, index) => (
+                <div
+                  key={nav.href}
+                  className="w-full flex flex-col items-center"
+                >
+                  <Link
+                    href={nav.href}
+                    className={`transition-all duration-200 ${
+                      pathname === nav.href
+                        ? `text-[${colors.linkActive}] font-semibold`
+                        : `text-[${colors.text}] hover:text-[${colors.linkHover}] hover:scale-105`
+                    }`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {nav.title}
+                  </Link>
+                  {index < navLinks.length - 1 && (
+                    <div className="w-[70%] border-b border-gray-300 mt-2"></div>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </Container>
       </nav>
 
       {/* فاصله برای محتوای زیر نوبار */}
       <div className="h-[4rem]" />
-      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+      <ClientOnly>
+        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+      </ClientOnly>
     </>
   );
 }

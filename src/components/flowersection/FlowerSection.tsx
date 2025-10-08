@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { getData } from "@/lib/getData";
 import CarouselWrapper from "./carousel/carouselwrapper";

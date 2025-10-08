@@ -18,12 +18,17 @@ interface CartStore {
   decreaseQty: (id: string) => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  hasHydrated: boolean; // ✅ اضافه شد
+  setHasHydrated: (state: boolean) => void; // ✅
 }
 
-const useCartStore = create(
-  persist<CartStore>(
+const useCartStore = create<CartStore>()(
+  persist(
     (set, get) => ({
       items: [],
+      hasHydrated: false, // ✅ پیش‌فرض false
+
+      setHasHydrated: (state) => set({ hasHydrated: state }),
 
       addToCart: (item, qty = 1) => {
         set((state) => {
@@ -72,7 +77,13 @@ const useCartStore = create(
     }),
     {
       name: "cart-storage",
-      storage: createJSONStorage(() => localStorage), // ✅ اینجا به جای wrapper دستی
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        // ✅ بعد از بازیابی از localStorage
+        if (state) {
+          state.setHasHydrated(true);
+        }
+      },
     }
   )
 );

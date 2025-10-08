@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useCartStore from "@/store/useCartStore";
 import FlowerCard from "./flowerCard";
+import ClientOnly from "./clientOnly";
 
 type Flower = {
   id?: number | string;
@@ -13,24 +14,18 @@ type Flower = {
   src?: string;
 };
 
-export default function FlowerDetailClient({
-  flower,
-  images,
-  allFlowers = [],
-  palette = 5,
-}: {
+interface Props {
   flower: Flower;
   images: string[];
   allFlowers?: Flower[];
   palette?: 1 | 2 | 3 | 4 | 5;
-}) {
+}
+
+function FlowerDetailClientContent({ flower, images, allFlowers = [], palette = 5 }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [mounted, setMounted] = useState(false);
-  const addToCart = useCartStore((state) => state.addToCart);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
     if (!flower.id || !flower.title || !flower.price) return;
@@ -50,26 +45,19 @@ export default function FlowerDetailClient({
     ? Number(flower.price).toLocaleString("fa-IR")
     : "—";
 
-  const similarFlowers = allFlowers
-    .filter((f) => f.id !== flower.id)
-    .slice(0, 4);
+  const similarFlowers = allFlowers.filter((f) => f.id !== flower.id).slice(0, 4);
 
   return (
     <>
-      {/* نوار بالای صفحه */}
       <section className="w-full bg-[#f9faf9] py-10 mt-20 border-t border-gray-100">
         <h2 className="text-center text-xl font-semibold text-[#496a52] tracking-wide">
           باکس گل
         </h2>
       </section>
 
-      <div
-        dir="rtl"
-        className="max-w-6xl mx-auto px-4 pb-16 pt-10 text-gray-800"
-      >
-        {/* بخش بالایی */}
+      <div dir="rtl" className="max-w-6xl mx-auto px-4 pb-16 pt-10 text-gray-800">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          {/* عکس اصلی */}
+          {/* بخش عکس */}
           <div className="flex flex-col items-center">
             <div className="relative w-full max-w-md aspect-square overflow-hidden rounded-lg border border-gray-200">
               <Image
@@ -80,7 +68,6 @@ export default function FlowerDetailClient({
               />
             </div>
 
-            {/* تصاویر کوچک */}
             <div className="flex gap-2 mt-4 flex-wrap justify-center">
               {images.map((img, index) => (
                 <button
@@ -88,17 +75,10 @@ export default function FlowerDetailClient({
                   onClick={() => setActiveIndex(index)}
                   aria-pressed={index === activeIndex}
                   className={`relative w-14 h-14 border rounded-md overflow-hidden transition-all duration-300 ${
-                    index === activeIndex
-                      ? "border-green-700"
-                      : "border-gray-300 hover:border-green-600"
+                    index === activeIndex ? "border-green-700" : "border-gray-300 hover:border-green-600"
                   }`}
                 >
-                  <Image
-                    src={img}
-                    alt={`thumbnail-${index}`}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={img} alt={`thumbnail-${index}`} fill className="object-cover" />
                 </button>
               ))}
             </div>
@@ -106,42 +86,33 @@ export default function FlowerDetailClient({
 
           {/* توضیحات */}
           <div className="flex flex-col justify-start text-right">
-            <span className="text-xs text-gray-400 mb-2">
-              کد محصول: {flower.id}
-            </span>
-
+            <span className="text-xs text-gray-400 mb-2">کد محصول: {flower.id}</span>
             <h1 className="text-xl font-semibold mb-4">{flower.title}</h1>
 
             <div className="text-gray-600 text-sm leading-8 space-y-3 mb-8 max-w-[600px] mx-auto text-justify leading-relaxed">
-              {Array.isArray(flower.desc) ? (
-                flower.desc.map((d, i) =>
-                  d.trim().startsWith("✔") ? (
-                    <li
-                      key={i}
-                      className="list-none flex items-start gap-2 before:content-['✔'] before:text-green-600 before:ml-2"
-                    >
-                      {d.replace("✔", "")}
-                    </li>
-                  ) : (
-                    <p key={i}>{d}</p>
+              {Array.isArray(flower.desc)
+                ? flower.desc.map((d, i) =>
+                    d.trim().startsWith("✔") ? (
+                      <li
+                        key={i}
+                        className="list-none flex items-start gap-2 before:content-['✔'] before:text-green-600 before:ml-2"
+                      >
+                        {d.replace("✔", "")}
+                      </li>
+                    ) : (
+                      <p key={i}>{d}</p>
+                    )
                   )
-                )
-              ) : (
-                <p>{flower.desc}</p>
-              )}
+                : <p>{flower.desc}</p>}
             </div>
 
-            {/* قیمت */}
             {flower.price && (
               <div className="mb-8">
                 <span className="block text-sm text-gray-400 mb-1">قیمت</span>
-                <span className="block text-md font-semibold text-green-700">
-                  {formattedPrice} تومان
-                </span>
+                <span className="block text-md font-semibold text-green-700">{formattedPrice} تومان</span>
               </div>
             )}
 
-            {/* دکمه خرید */}
             <div className="flex items-center gap-3 mb-8">
               <input
                 type="number"
@@ -160,25 +131,21 @@ export default function FlowerDetailClient({
             </div>
 
             <div className="bg-blue-50 border border-blue-100 text-blue-700 text-xs py-3 px-4 rounded-md leading-6">
-              به دلیل فصلی بودن گل‌های طبیعی، ممکن است ترکیب نهایی تا ۳۰٪ متفاوت
-              باشد.
+              به دلیل فصلی بودن گل‌های طبیعی، ممکن است ترکیب نهایی تا ۳۰٪ متفاوت باشد.
             </div>
           </div>
         </div>
 
-        {/* جداکننده با دایره توخالی */}
+        {/* جداکننده */}
         <div className="relative my-16 flex items-center justify-center">
           <div className="flex-1 h-px bg-gray-200"></div>
           <div className="mx-4 w-5 h-5 border border-gray-400 rounded-full"></div>
           <div className="flex-1 h-px bg-gray-200"></div>
         </div>
 
-        {/* محصولات مشابه */}
         {similarFlowers.length > 0 && (
           <div>
-            <h2 className="text-lg font-medium mb-8 text-right">
-              محصولات مشابه
-            </h2>
+            <h2 className="text-lg font-medium mb-8 text-right">محصولات مشابه</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {similarFlowers.map((f) => (
                 <FlowerCard key={f.id} flower={f as any} palette={palette} />
@@ -188,5 +155,13 @@ export default function FlowerDetailClient({
         )}
       </div>
     </>
+  );
+}
+
+export default function FlowerDetailClientWrapper(props: Props) {
+  return (
+    <ClientOnly>
+      <FlowerDetailClientContent {...props} />
+    </ClientOnly>
   );
 }
