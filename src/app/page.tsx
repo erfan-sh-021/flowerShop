@@ -1,4 +1,3 @@
-import "./globals.css";
 import HeroSection from "@/components/HeroSection";
 import FlowerSection from "../components/flowersection/FlowerSection";
 import ServicesSection from "@/components/serviceSection";
@@ -19,7 +18,7 @@ export default async function Home() {
       <RibbonTitle text="مقالات" pb="pb-20" pt="pt-40"/>
 
       <Articles/>
-      <Footer palette={5}/>
+ 
       
     </>
   );

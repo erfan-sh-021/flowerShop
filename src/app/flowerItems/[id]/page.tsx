@@ -20,5 +20,10 @@ export default async function FlowerDetail({
 
   const images = Array.from({ length: 4 }, (_, i) => productImages[i] || "/images/placeholder.png");
 
-  return <FlowerDetailClient flower={flower} images={images} />;
+  return  <FlowerDetailClient
+  flower={flower}
+  images={images}
+  allFlowers={flowers}
+  palette={5}
+/>;
 }
