@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Layout from "@/components/layout";
+import './globals.css'
 
 export const metadata: Metadata = {
   title: "online shop",
