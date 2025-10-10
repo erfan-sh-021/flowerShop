@@ -23,11 +23,9 @@ function Navbar({ palette = 5 }: NavbarProps) {
   const [cartOpen, setCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // ✅ Zustand
+  // Zustand
+  const totalItems = useCartStore((state) => state.getTotalItems());
   const hasHydrated = useCartStore((state) => state.hasHydrated);
-  const totalItems = useCartStore((state) =>
-    hasHydrated ? state.getTotalItems() : 0
-  );
 
   // کنترل اسکرول
   useEffect(() => {
@@ -44,8 +42,6 @@ function Navbar({ palette = 5 }: NavbarProps) {
     { href: "/spetial", title: "بسته های ویژه مناسبتی" },
     { href: "/login", title: "ورود" },
   ];
-
-  if (!hasHydrated) return null; // ✅ فقط بعد از hydrate رندر می‌کنه
 
   return (
     <>
@@ -107,9 +103,15 @@ function Navbar({ palette = 5 }: NavbarProps) {
                   href={nav.href}
                   className={`text-sm md:text-xs lg:text-sm transition-all duration-300 relative px-2 py-1 ${
                     pathname === nav.href
-                      ? `text-[${colors.linkActive}] font-semibold before:absolute before:-bottom-1 before:left-0 before:w-full before:h-1 before:rounded-full before:bg-[${colors.linkActive}]`
-                      : `text-[${colors.text}] hover:text-[${colors.linkHover}] hover:scale-110`
+                      ? `font-semibold`
+                      : `hover:scale-110`
                   }`}
+                  style={{
+                    color:
+                      pathname === nav.href
+                        ? colors.linkActive
+                        : colors.text,
+                  }}
                 >
                   {nav.title}
                 </Link>
@@ -127,7 +129,7 @@ function Navbar({ palette = 5 }: NavbarProps) {
                   size={20}
                   className="text-white animate-bounce-slow"
                 />
-                {totalItems > 0 && (
+                {hasHydrated && totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 px-1.5 py-0.5 text-xs bg-white text-black rounded-full shadow animate-pulse-slow">
                     {totalItems}
                   </span>
@@ -151,17 +153,16 @@ function Navbar({ palette = 5 }: NavbarProps) {
           {menuOpen && (
             <div className="flex flex-col items-center gap-5 mt-4 px-4 pb-6 md:hidden text-center animate-slideDown fade-in">
               {navLinks.map((nav, index) => (
-                <div
-                  key={nav.href}
-                  className="w-full flex flex-col items-center"
-                >
+                <div key={nav.href} className="w-full flex flex-col items-center">
                   <Link
                     href={nav.href}
-                    className={`transition-all duration-200 ${
-                      pathname === nav.href
-                        ? `text-[${colors.linkActive}] font-semibold`
-                        : `text-[${colors.text}] hover:text-[${colors.linkHover}] hover:scale-105`
-                    }`}
+                    className={`transition-all duration-200`}
+                    style={{
+                      color:
+                        pathname === nav.href
+                          ? colors.linkActive
+                          : colors.text,
+                    }}
                     onClick={() => setMenuOpen(false)}
                   >
                     {nav.title}
