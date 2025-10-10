@@ -1,29 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useCartStore from "@/store/useCartStore";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
-import ClientOnly from "@/components/clientOnly";
 
-function CheckoutContent() {
+export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotalPrice, clearCart, removeFromCart, increaseQty, decreaseQty } = useCartStore();
+  const { items, getTotalPrice, clearCart, removeFromCart, increaseQty, decreaseQty } =
+    useCartStore();
+  const [mounted, setMounted] = useState(false);
   const [discountCode, setDiscountCode] = useState("");
   const [discount, setDiscount] = useState(0);
-  const shippingCost = 50000;
-  const [subtotal, setSubtotal] = useState(0);
-  const [total, setTotal] = useState(0);
+  const shippingCost = 0;
 
+  useEffect(() => setMounted(true), []);
   useEffect(() => {
-    const sub = getTotalPrice();
-    setSubtotal(sub);
-    setTotal(sub - sub * discount + shippingCost);
-  }, [items, discount, getTotalPrice]);
+    if (mounted && (!items || items.length === 0)) router.push("/store");
+  }, [mounted, items, router]);
 
-  useEffect(() => {
-    if (items.length === 0) router.push("/store");
-  }, [items, router]);
+  if (!mounted) return null;
 
   const handleApplyDiscount = () => {
     if (discountCode.trim().toLowerCase() === "off10") setDiscount(0.1);
@@ -39,82 +35,165 @@ function CheckoutContent() {
     router.push("/");
   };
 
-  return (
-    <div className="container mx-auto p-6 max-w-2xl min-h-[500px]">
-      <h1 className="text-2xl font-bold text-center mb-6">تکمیل خرید</h1>
+  const subtotal = getTotalPrice();
+  const discountAmount = Math.round(subtotal * discount);
+  const total = subtotal - discountAmount + shippingCost;
 
-      <div className="bg-white shadow-md rounded-lg p-4 border flex flex-col">
-        <div className="flex-1 overflow-y-auto max-h-96">
-          {items.map((item) => (
-            <div key={item.id} className="flex justify-between items-center border-b py-3">
-              <div className="flex items-center gap-3">
-                <img src={item.image} alt={item.name} className="w-14 h-14 rounded object-cover" />
-                <div>
-                  <p className="text-sm font-medium">{item.name}</p>
-                  <p className="text-xs text-gray-500">{item.price.toLocaleString()} تومان</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <button onClick={() => decreaseQty(item.id)} className="px-2 bg-gray-200 rounded hover:bg-gray-300 transition">-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item.id)} className="px-2 bg-gray-200 rounded hover:bg-gray-300 transition">+</button>
+  return (
+    <div
+      dir="rtl"
+      className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        {/* 🛒 سبد خرید */}
+        <div className="lg:col-span-9 bg-white border rounded-md shadow-sm w-full overflow-hidden">
+          <div className="hidden md:flex items-center text-gray-500 text-sm border-b px-4 sm:px-6 py-3">
+            <div className="w-[35%] text-right">نام</div>
+            <div className="w-[20%] text-center">قیمت واحد</div>
+            <div className="w-[15%] text-center">تعداد</div>
+            <div className="w-[15%] text-center">مجموع</div>
+            <div className="w-[5%] text-center">حذف</div>
+          </div>
+
+          <div className="px-3 sm:px-6">
+            {items.map((item: any) => (
+              <div
+                key={item.id}
+                className="flex flex-col md:flex-row md:items-center md:justify-between py-4 border-b last:border-b-0"
+              >
+                {/* نام + عکس */}
+                <div className="flex items-center gap-3 sm:gap-4 md:w-[35%] w-full">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded"
+                  />
+                  <div>
+                    <div className="text-sm font-medium text-right break-words">
+                      {item.name}
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">{item.id}</div>
                   </div>
                 </div>
+
+                {/* قیمت واحد */}
+                <div className="mt-3 md:mt-0 md:w-[20%] text-center text-sm text-gray-700">
+                  {item.price.toLocaleString()} تومان
+                </div>
+
+                {/* تعداد */}
+                <div className="mt-3 md:mt-0 md:w-[15%] flex justify-center items-center gap-2">
+                  <button
+                    onClick={() => decreaseQty(item.id)}
+                    className="px-2 border rounded hover:bg-gray-100"
+                  >
+                    -
+                  </button>
+                  <span className="w-6 text-center">{item.quantity}</span>
+                  <button
+                    onClick={() => increaseQty(item.id)}
+                    className="px-2 border rounded hover:bg-gray-100"
+                  >
+                    +
+                  </button>
+                </div>
+
+                {/* مجموع */}
+                <div className="mt-3 md:mt-0 md:w-[15%] text-center font-medium text-gray-800">
+                  {(item.price * item.quantity).toLocaleString()} تومان
+                </div>
+
+                {/* حذف */}
+                <div className="mt-3 md:mt-0 md:w-[5%] flex justify-center">
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-red-500 hover:text-red-700 p-1"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </div>
-              <button onClick={() => removeFromCart(item.id)} className="text-red-500 hover:text-red-700 transition">
-                <Trash2 size={18} />
-              </button>
+            ))}
+
+            {/* subtotal */}
+            <div className="hidden md:flex justify-end items-center py-4">
+              <div className="text-sm text-gray-700">
+                <span className="ml-2">مجموع:</span>
+                <span className="font-medium">
+                  {subtotal.toLocaleString()} تومان
+                </span>
+              </div>
             </div>
-          ))}
-        </div>
-
-        <p className="flex justify-between mt-3 border-t pt-3">
-          <span>جمع جزء</span>
-          <span>{subtotal.toLocaleString()} تومان</span>
-        </p>
-
-        <div className="mt-4">
-          <label className="block text-sm font-medium mb-1">کد تخفیف</label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-              placeholder="مثلاً OFF10"
-              className="border rounded px-3 py-2 flex-1 focus:outline-none focus:ring focus:ring-blue-300"
-            />
-            <button onClick={handleApplyDiscount} className="bg-blue-500 text-white px-4 rounded hover:bg-blue-600 transition">
-              اعمال
-            </button>
           </div>
-          {discount > 0 && (
-            <p className="text-green-600 text-sm mt-1">✅ تخفیف {discount * 100}% اعمال شد</p>
-          )}
         </div>
 
-        <p className="flex justify-between mt-4 font-semibold">
-          <span>هزینه ارسال</span>
-          <span>{shippingCost.toLocaleString()} تومان</span>
-        </p>
+        {/* 📦 خلاصه سفارش */}
+        <aside className="lg:col-span-3 w-full">
+          <div className="bg-white border rounded-md shadow-sm p-4 sm:p-6 flex flex-col justify-between h-full">
+            <div>
+              <h3 className="text-center font-semibold mb-4 text-base sm:text-lg">
+                خلاصه سفارش
+              </h3>
 
-        <p className="flex justify-between mt-2 font-bold text-lg border-t pt-3">
-          <span>جمع کل</span>
-          <span>{(subtotal - subtotal * discount + shippingCost).toLocaleString()} تومان</span>
-        </p>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center">
+                  <span className="text-gray-600">کالا (ها)</span>
+                  <div className="flex-1 border-b border-dashed border-gray-300 mx-3"></div>
+                  <span>{items.length}</span>
+                </div>
 
-        <button
-          onClick={handlePayment}
-          className="mt-6 w-full bg-green-700 hover:bg-green-600 text-white py-2 rounded transition"
-        >
-          پرداخت نهایی
-        </button>
+                <div className="flex items-center">
+                  <span className="text-gray-600">جمع جزء</span>
+                  <div className="flex-1 border-b border-dashed border-gray-300 mx-3"></div>
+                  <span className="font-medium">
+                    {subtotal.toLocaleString()} تومان
+                  </span>
+                </div>
+
+                {discount > 0 && (
+                  <div className="flex items-center text-green-600">
+                    <span>تخفیف</span>
+                    <div className="flex-1 border-b border-dashed border-gray-300 mx-3"></div>
+                    <span>-{discountAmount.toLocaleString()} تومان</span>
+                  </div>
+                )}
+              </div>
+
+              {/* input تخفیف */}
+              <div className="mt-5">
+                <label className="text-xs text-gray-500">کد تخفیف</label>
+                <div className="flex flex-col xs:flex-row sm:flex-row gap-2 mt-2">
+                  <input
+                    type="text"
+                    value={discountCode}
+                    onChange={(e) => setDiscountCode(e.target.value)}
+                    placeholder="مثلاً OFF10"
+                    className="lg:w-10 flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-200"
+                  />
+                  <button
+                    onClick={handleApplyDiscount}
+                    className="bg-gray-800 text-white px-3 py-2 rounded text-sm hover:opacity-90"
+                  >
+                    اعمال
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button
+                onClick={handlePayment}
+                className="mt-6 w-full bg-[#546D55] hover:bg-[#415641] text-white py-3 rounded-md font-medium transition"
+              >
+                تکمیل خرید
+              </button>
+              <p className="text-center text-xs text-gray-500 mt-3">
+                در ادامه هزینه ارسال اضافه خواهد شد.
+              </p>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
-  );
-}
-
-export default function CheckoutWrapper() {
-  return (
-    <ClientOnly>
-      <CheckoutContent />
-    </ClientOnly>
   );
 }
