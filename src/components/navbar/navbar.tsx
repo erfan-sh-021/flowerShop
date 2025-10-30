@@ -9,21 +9,21 @@ import { ShoppingCart, User } from "lucide-react";
 import CartDrawer from "./cartDrawer";
 import useCartStore from "@/store/useCartStore";
 import { colorPalettes } from "@/utils/colorPlatte";
+import useColorStore from "@/store/useColorStore"; // ✅ اضافه شد
 import ClientOnly from "../clientOnly";
 
-interface NavbarProps {
-  palette?: 1 | 2 | 3 | 4 | 5;
-}
-
-function Navbar({ palette = 5 }: NavbarProps) {
-  const colors = colorPalettes[palette];
+function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Zustand
+  // ✅ گرفتن رنگ فعال از Zustand
+  const currentPalette = useColorStore((state) => state.currentPalette);
+  const colors = colorPalettes[currentPalette];
+
+  // Zustand برای سبد خرید
   const totalItems = useCartStore((state) => state.getTotalItems());
   const hasHydrated = useCartStore((state) => state.hasHydrated);
 
