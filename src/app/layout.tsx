@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import Layout from "@/components/layout";
 import './globals.css'
+import Footer from "@/components/footer/footer";
+import Navbar from "@/components/navbar/navbar";
+import ThemeUpdater from "@/components/themeUpdater";
 
 export const metadata: Metadata = {
   title: "online shop",
@@ -15,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <Navbar/>
+        <ThemeUpdater/>
+        {children}
+        <Footer/>
       </body>
     </html>
   );

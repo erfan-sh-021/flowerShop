@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { Instagram, Send, Facebook, Youtube } from "lucide-react";
 import { colorPalettes } from "@/utils/colorPlatte";
+import useColorStore from "@/store/useColorStore";
 
-interface MobileAccordionProps {
-  palette: 1 | 2 | 3 | 4 | 5;
-}
 
-export default function MobileAccordion({ palette }: MobileAccordionProps) {
+export default function MobileAccordion() {
   const [open, setOpen] = useState<string | null>(null);
-  const colors = colorPalettes[palette];
+  const {currentPalette} = useColorStore();
+  const colors = colorPalettes[currentPalette];
+  
 
   const sections = [
     {

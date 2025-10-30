@@ -5,7 +5,6 @@ import FlowerSection from "../components/flowersection/FlowerSection";
 import ServicesSection from "@/components/serviceSection";
 import FlowersCollections from "@/components/colectionFlower";
 import Articles from "@/components/article/articles";
-import Footer from "@/components/footer/footer";
 import RibbonTitle from "@/components/titr";
 
 export default async function Home() {
