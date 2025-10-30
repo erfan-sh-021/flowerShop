@@ -1,5 +1,8 @@
 import { getData } from "@/lib/getData";
 import Link from "next/link";
+import MoreArticlesButton from "./moreArticleButton";
+
+
 
 export default async function Articles() {
   const { data: articles } = await getData("articles", 1, 3);
@@ -33,11 +36,7 @@ export default async function Articles() {
 
       {/* دکمه مطالب بیشتر */}
       <div className="mt-12 flex justify-center">
-        <Link href="/articles">
-          <button className="px-6 py-2 rounded-md text-pink-600 border border-pink-400 hover:bg-pink-50 transition-colors font-medium">
-            مطالب بیشتر
-          </button>
-        </Link>
+      <MoreArticlesButton/>
       </div>
     </section>
   );

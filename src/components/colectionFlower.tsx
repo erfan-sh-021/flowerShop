@@ -13,24 +13,11 @@ type Collection = {
 export default async function CollectionsSection() {
   const res = await getData("collections", 1, 10);
   const collections: Collection[] = res?.data ?? [];
-  const items = collections.slice(0, 6);
+  const items = collections.slice(0, 5); // فقط 5 کارت واقعی
   const palette = colorPalettes[5]; // پالت دلخواه
 
-  const placeholdersCount = 6 - items.length;
-
   return (
-    <section className="w-full px-6  rounded-2xl">
-      {/* متن بالا سمت راست */}
-      {/* <div className="max-w-7xl mx-auto flex justify-end mb-4">
-        <span
-          className="text-sm font-semibold cursor-pointer hover:underline transition-colors"
-          style={{ color: palette.linkHover }}
-        >
-          مشاهده همه
-        </span>
-      </div> */}
-
-      {/* گرید کارت‌ها */}
+    <section className="w-full px-6 rounded-2xl">
       <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-3">
         {items.map((item) => (
           <Link
@@ -58,22 +45,19 @@ export default async function CollectionsSection() {
           </Link>
         ))}
 
-        {/* کارت‌های placeholder */}
-        {Array.from({ length: placeholdersCount }).map((_, idx) => (
-          <div
-            key={`placeholder-${idx}`}
-            className="flex items-center justify-center w-full pb-[100%] border-2 border-dashed rounded-lg relative overflow-hidden cursor-pointer transition-colors duration-300 hover:border-linkHover hover:text-linkHover hover:scale-105 hover:shadow-lg"
-            style={{
-              borderColor: palette.linkActive,
-              color: palette.linkActive,
-              transitionProperty: "border-color, color, transform, box-shadow",
-            }}
-          >
-            <span className="absolute inset-0 flex items-center justify-center text-lg md:text-xl font-bold transition-transform duration-300 hover:scale-110">
-              موارد بیشتر
-            </span>
-          </div>
-        ))}
+        {/* کارت پلیس هولدر همیشه آخر */}
+        <div
+          className="flex items-center justify-center w-full pb-[100%] border-2 border-dashed rounded-lg relative overflow-hidden cursor-pointer transition-colors duration-300 hover:border-linkHover hover:text-linkHover hover:scale-105 hover:shadow-lg"
+          style={{
+            borderColor: palette.linkActive,
+            color: palette.linkActive,
+            transitionProperty: "border-color, color, transform, box-shadow",
+          }}
+        >
+          <span className="absolute inset-0 flex items-center justify-center text-lg md:text-xl font-bold transition-transform duration-300 hover:scale-110">
+            موارد بیشتر
+          </span>
+        </div>
       </div>
     </section>
   );
