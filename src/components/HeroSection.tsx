@@ -1,13 +1,25 @@
 "use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { colorPalettes } from "@/utils/colorPlatte";
+import useColorStore from "@/store/useColorStore";
 
-interface HeroSectionProps {
-  palette?: 1 | 2 | 3 | 4 | 5;
-}
+function HeroSection() {
+  const { currentPalette, initializePalette } = useColorStore();
+  const [mounted, setMounted] = useState(false);
 
-function HeroSection({ palette = 5 }: HeroSectionProps) {
-  const colors = colorPalettes[palette];
+  useEffect(() => {
+    // مقدار پالت ذخیره‌شده را از localStorage بخوان
+    initializePalette();
+    setMounted(true);
+  }, [initializePalette]);
+  if (!mounted) {
+    // برای جلوگیری از mismatch در SSR
+    return (
+      <section className="relative w-full min-h-[75vh] flex items-center justify-center bg-gray-100" />
+    );
+  }
+  const colors = colorPalettes[currentPalette];
 
   return (
     <section
@@ -20,7 +32,6 @@ function HeroSection({ palette = 5 }: HeroSectionProps) {
       <div className="absolute inset-0 bg-[url('/images/flowerTexture.png')] bg-cover bg-center opacity-10 animate-[textureMove_20s_linear_infinite]" />
 
       <div className="relative z-10 container mx-auto flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-16 gap-12">
-
         {/* تصویر گل سمت چپ */}
         <div className="flex justify-center w-full md:w-1/2 order-1">
           <div className="relative w-60 h-60 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
@@ -47,7 +58,8 @@ function HeroSection({ palette = 5 }: HeroSectionProps) {
             className="text-base sm:text-lg md:text-base max-w-md mx-auto md:mx-0"
             style={{ color: colors.text }}
           >
-            مجموعه‌ای از زیباترین گل‌ها برای هدیه دادن به عزیزانتان، با کیفیتی بی‌نظیر و انتخابی خاص.
+            مجموعه‌ای از زیباترین گل‌ها برای هدیه دادن به عزیزانتان، با کیفیتی
+            بی‌نظیر و انتخابی خاص.
           </p>
 
           <button
