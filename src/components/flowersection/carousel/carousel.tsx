@@ -33,7 +33,7 @@ export default function Carousel({
     >
       {flowers.map((flower) => (
         <SwiperSlide key={flower.id} className="!w-[220px]">
-          <FlowerCard flower={flower} palette={palette} />
+          <FlowerCard flower={flower}/>
         </SwiperSlide>
       ))}
     </Swiper>

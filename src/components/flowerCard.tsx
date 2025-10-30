@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { colorPalettes } from "@/utils/colorPlatte";
+import useColorStore from "@/store/useColorStore";
 
 type Flower = {
   id: number;
@@ -14,14 +15,9 @@ type Flower = {
   code?: string;
 };
 
-export default function FlowerCard({
-  flower,
-  palette = 5,
-}: {
-  flower: Flower;
-  palette?: 1 | 2 | 3 | 4 | 5;
-}) {
-  const colors = colorPalettes[palette];
+export default function FlowerCard({ flower }: { flower: Flower }) {
+  const {currentPalette} = useColorStore();
+  const colors = colorPalettes[currentPalette];
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -81,9 +77,7 @@ export default function FlowerCard({
           </h3>
 
           {flower.id && (
-            <span className="text-xs text-gray-500">
-              کد محصول: {flower.id}
-            </span>
+            <span className="text-xs text-gray-500">کد محصول: {flower.id}</span>
           )}
 
           <span
