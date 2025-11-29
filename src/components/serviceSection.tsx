@@ -41,7 +41,7 @@ export default function ServicesSection() {
       </h2>
 
       {/* کارت‌های خدمات */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-6xl mx-5 xl:mx-auto">
         {services.map(({ id, Icon, title }) => (
           <div
             key={id}
@@ -50,14 +50,14 @@ export default function ServicesSection() {
             {/* آیکون */}
             <div className="mb-4 transform transition-transform duration-300 group-hover:-translate-y-1">
               <Icon
-                className="w-12 h-12 mx-auto"
+                className="w-8 h-8 md:w-12 md:h-12  mx-auto"
                 style={{ color: "var(--button-from)" }}
               />
             </div>
 
             {/* متن سرویس */}
             <p
-              className="mt-2 text-sm md:text-base font-medium"
+              className="mt-2 text-xs md:text-base font-medium"
               style={{ color: "var(--text-color)" }}
             >
               {title}

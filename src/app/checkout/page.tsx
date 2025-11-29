@@ -7,8 +7,15 @@ import { Trash2 } from "lucide-react";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotalPrice, clearCart, removeFromCart, increaseQty, decreaseQty, hasHydrated } =
-    useCartStore();
+  const {
+    items,
+    getTotalPrice,
+    clearCart,
+    removeFromCart,
+    increaseQty,
+    decreaseQty,
+    hasHydrated,
+  } = useCartStore();
   const [discountCode, setDiscountCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const shippingCost = 0;
@@ -38,7 +45,10 @@ export default function CheckoutPage() {
   // اسکلتون
   if (!hasHydrated) {
     return (
-      <div dir="rtl" className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10">
+      <div
+        dir="rtl"
+        className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           {/* سبد خرید اسکلتون */}
           <div className="lg:col-span-9 bg-white border rounded-md shadow-sm w-full overflow-hidden">
@@ -52,7 +62,10 @@ export default function CheckoutPage() {
 
             <div className="px-3 sm:px-6">
               {Array.from({ length: 3 }).map((_, idx) => (
-                <div key={idx} className="flex flex-col md:flex-row md:items-center md:justify-between py-4 border-b last:border-b-0 animate-pulse">
+                <div
+                  key={idx}
+                  className="flex flex-col md:flex-row md:items-center md:justify-between py-4 border-b last:border-b-0 animate-pulse"
+                >
                   <div className="flex items-center gap-3 sm:gap-4 md:w-[35%] w-full">
                     <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-300 rounded" />
                     <div className="flex flex-col gap-1">
@@ -105,7 +118,10 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div dir="rtl" className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10">
+    <div
+      dir="rtl"
+      className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* 🛒 سبد خرید */}
         <div className="lg:col-span-9 bg-white border rounded-md shadow-sm w-full overflow-hidden">
@@ -117,7 +133,10 @@ export default function CheckoutPage() {
             <div className="w-[5%] text-center">حذف</div>
           </div>
 
-          <div className="px-3 sm:px-6">
+          <div
+            className="px-3 sm:px-6   lg:max-h-[600px] lg:overflow-y-auto lg:pr-2
+                       scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+          >
             {items.map((item: any) => (
               <div
                 key={item.id}
@@ -176,15 +195,14 @@ export default function CheckoutPage() {
                 </div>
               </div>
             ))}
-
-            {/* subtotal */}
-            <div className="hidden md:flex justify-end items-center py-4">
-              <div className="text-sm text-gray-700">
-                <span className="ml-2">مجموع:</span>
-                <span className="font-medium">
-                  {subtotal.toLocaleString()} تومان
-                </span>
-              </div>
+          </div>
+          {/* subtotal */}
+          <div className="hidden md:flex justify-end py-4  px-4 border-t bg-white/60 backdrop-blur-sm">
+            <div className="text-sm text-gray-700">
+              <span className="ml-2">مجموع:</span>
+              <span className="font-medium">
+                {subtotal.toLocaleString()} تومان
+              </span>
             </div>
           </div>
         </div>
